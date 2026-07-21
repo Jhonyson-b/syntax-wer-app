@@ -1,9 +1,11 @@
+import { Header } from "./components/Header"
 
 function App() {
 
   return (
     <>
-    <p className="text-error font-medium">Hello Word</p>
+    <Header />
+    
     </>
   )
 }
