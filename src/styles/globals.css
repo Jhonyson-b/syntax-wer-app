@@ -53,11 +53,11 @@ body {
 }
 
 /* Esconde scrolbar no Chrome, Safari e Edge */
-.scrolbar-hide::-webkit-scrolbar {
+.scrollbar-hide::-webkit-scrollbar {
     display: none;
 }
 
 /* Esconde scrolbar no Firefox */
-.scrolbar-hide {
+.scrollbar-hide {
     scrollbar-width: none;
 }
