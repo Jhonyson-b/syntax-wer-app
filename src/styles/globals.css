@@ -50,7 +50,8 @@
 
 body {
     font-family: var(--font-display);
-    color: #ffffff
+    color: #ffffff;
+    background-color: var(--color-surface);
 }
 
 /* Esconde scrolbar no Chrome, Safari e Edge */
