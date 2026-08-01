@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { Product } from '../interfaces/product';
 import { CartContext } from './CartContext';
 
@@ -10,76 +10,90 @@ export interface ProductCart extends Product {
     quantity: number;
 }
 
+const localStorageKey = '@SintaxWer:cart';
+
 export const CartProvider = ({ children }: CartProviderProps) => {
 
-    const [cart, setCart] = useState<ProductCart[]>([]);
+    const [cart, setCart] = useState<ProductCart[]>(() => {
+    const cartFromLocalStorage = localStorage.getItem(localStorageKey);
+    return cartFromLocalStorage !== null ? JSON.parse(cartFromLocalStorage) : [];
+    });
 
-    function addToCart(product: Product): void {
-        const productExistsInCart = cart.find(
-            (itemIncart) => itemIncart.id === product.id
-        );
+    const totalItemsInCart = cart.reduce((total, itemInCart) => {
+        return total + itemInCart.quantity;
+    }, 0);
 
-        let newCart;
+useEffect(() => {
+    localStorage.setItem(localStorageKey, JSON.stringify(cart));
+}, [cart]);
 
-        if (productExistsInCart) {
-            newCart = cart.map((itemInCart) =>
-                itemInCart.id === product.id
-                    ? { ...itemInCart, quantity: itemInCart.quantity + 1 }
-                    : itemInCart
-            );
-        } else {
-            newCart = [...cart, { ...product, quantity: 1 }];
-        }
+function addToCart(product: Product): void {
+    const productExistsInCart = cart.find(
+        (itemIncart) => itemIncart.id === product.id
+    );
 
-        setCart(newCart);
-    }
+    let newCart;
 
-    function removeFromCart(productId: number): void {
-        setCart(cart.filter((itemInCart) => itemInCart.id !== productId));
-    }
-
-    function incrementInCart(product: ProductCart): void {
-        updateProductQuantity(product, product.quantity + 1);
-    }
-
-    function decrementInCart(product: ProductCart): void {
-        updateProductQuantity(product, product.quantity - 1);
-    }
-
-    function updateProductQuantity(
-        product: ProductCart,
-        newQuantity: number
-    ): void {
-        if (newQuantity <= 0) return;
-
-        const productExistsInCart = cart.find(
-            (itemIncart) => itemIncart.id === product.id
-        );
-
-        if (!productExistsInCart) return;
-
-        const newCart = cart.map((itemInCart) =>
+    if (productExistsInCart) {
+        newCart = cart.map((itemInCart) =>
             itemInCart.id === product.id
-                ? { ...itemInCart, quantity: newQuantity }
+                ? { ...itemInCart, quantity: itemInCart.quantity + 1 }
                 : itemInCart
         );
-
-        setCart(newCart);
+    } else {
+        newCart = [...cart, { ...product, quantity: 1 }];
     }
 
-    return (
-        <CartContext.Provider
-            value={{
-                cart,
-                addToCart,
-                removeFromCart,
-                incrementInCart,
-                decrementInCart
-            }}
-        >
-            {children}
-        </CartContext.Provider>
+    setCart(newCart);
+}
+
+function removeFromCart(productId: number): void {
+    setCart(cart.filter((itemInCart) => itemInCart.id !== productId));
+}
+
+function incrementInCart(product: ProductCart): void {
+    updateProductQuantity(product, product.quantity + 1);
+}
+
+function decrementInCart(product: ProductCart): void {
+    updateProductQuantity(product, product.quantity - 1);
+}
+
+function updateProductQuantity(
+    product: ProductCart,
+    newQuantity: number
+): void {
+    if (newQuantity <= 0) return;
+
+    const productExistsInCart = cart.find(
+        (itemIncart) => itemIncart.id === product.id
     );
+
+    if (!productExistsInCart) return;
+
+    const newCart = cart.map((itemInCart) =>
+        itemInCart.id === product.id
+            ? { ...itemInCart, quantity: newQuantity }
+            : itemInCart
+    );
+
+    setCart(newCart);
+}
+
+return (
+    <CartContext.Provider
+        value={{
+            cart,
+            totalItemsInCart,
+            addToCart,
+            removeFromCart,
+            incrementInCart,
+            decrementInCart
+        }}
+    >
+        {children}
+    </CartContext.Provider>
+);
 };
 
 // - adicionar um produto ao carrinho

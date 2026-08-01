@@ -6,14 +6,18 @@ import { CartContext } from '../../contexts/CartContext';
 
 export const ShoppingCart = () => {
     const [cartIsOpen, setCartIsOpen] = useState<boolean>(false);
-    const { cart, removeFromCart, incrementInCart, decrementInCart } = useContext(CartContext);
-
-    console.log("items no carrinho:", cart);
+    const { cart, totalItemsInCart, removeFromCart, incrementInCart, decrementInCart } = useContext(CartContext);
 
     return (
         <>
-            <button className="cursor-pointer" onClick={() => setCartIsOpen(!cartIsOpen)}>
+            <button className="relative cursor-pointer" onClick={() => setCartIsOpen(!cartIsOpen)} aria-label={`Carrinho com ${totalItemsInCart} itens`}>
                 <img src={IconCart} alt="Ícone carrinho de compras" />
+
+                {totalItemsInCart > 0 && (
+                    <span className="absolute -top-1 -right-1 flex min-w-5 h-5 items-center justify-center rounded-full bg-red-600 px-1 text-[11px] font-bold leading-none text-white">
+                        {totalItemsInCart}
+                    </span>
+                )}
             </button>
 
             {/* Overlay */}
@@ -26,7 +30,7 @@ export const ShoppingCart = () => {
                         <button className="text-xl cursor-pointer" onClick={() => setCartIsOpen(!cartIsOpen)}>X</button>
                     </header>
 
-                    <ul className="p-4 h-[calc(100%_-_140px)] overflow-y-auto scrollbar-hide flex flex-col gap-3">
+                    <ul className="p-4 h-[calc(100%-140px)] overflow-y-auto scrollbar-hide flex flex-col gap-3">
                         {cart.map(product => (
                             <li className="flex flex-col gap-1 px-6" key={product.id}>
                                 <button className="self-end text-xs cursor-pointer" onClick={() => removeFromCart(product.id)}>X</button>
@@ -54,7 +58,7 @@ export const ShoppingCart = () => {
                         ))}
                     </ul>
 
-                    <footer className="absolute bottom-0 w-full h-[100px] p-4">
+                    <footer className="absolute bottom-0 w-full h-25 p-4">
                         <button className="w-full h-full bg-black text-white rounded-xs cursor-pointer hover:bg-gray-800">
                             Fechar pedido
                         </button>
