@@ -38,7 +38,7 @@ export const Header = () => {
                             </li>
 
                             <li className='hidden md:block'>
-                                <a href="#">Sobre</a>
+                                <Link to='/about'>Sobre</Link>
                             </li>
 
                             <li>
