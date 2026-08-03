@@ -3,6 +3,13 @@ import bannerAbout from '@/assets/images/about.jpg'
 
 export const Route = createFileRoute('/_app/about/')({
     component: RouteComponent,
+    // Define o titulo da aba para a pagina Sobre.
+    head: () => ({
+        meta: [
+            { title: "Sobre - SyntaxWer" }
+        ]
+
+    })
 })
 
 function RouteComponent() {

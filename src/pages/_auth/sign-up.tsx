@@ -6,6 +6,13 @@ import GoogleIcon from '@/assets/images/google-icon.png'
 
 export const Route = createFileRoute('/_auth/sign-up')({
   component: RouteComponent,
+  // Define o titulo da aba para a pagina de cadastro.
+  head: () => ({
+    meta: [
+      { title: "Cadastre-se - SyntaxWer" }
+    ]
+
+  })
 })
 
 function RouteComponent() {

@@ -4,6 +4,12 @@ import { products } from '../../../mocks/products'
 
 export const Route = createFileRoute('/_app/products/')({
   component: RouteComponent,
+  head: () => ({
+    meta: [
+      { title: "Produtos - SyntaxWer" }
+    ]
+
+  })
 })
 
 function RouteComponent() {
@@ -17,14 +23,15 @@ function RouteComponent() {
         Conforto excepcional para suas aventuras diárias.
       </h2>
 
-      {<>
+      {
         products.length === 0 ? (
-        <p className="text-center">Nenhum produto foi encontrado para esta categoria.</p>
-        <Link to="/products" className="text-accent hover:text-accent-hover hover:underline">Voltar para produtos</Link>
-
+          <>
+            <p className="text-center">Nenhum produto foi encontrado para esta categoria.</p>
+            <Link to="/products" className="text-accent hover:text-accent-hover hover:underline">Voltar para produtos</Link>
+          </>
         ) : (
-        <ProductList products={products} />
-        )</>
+          <ProductList products={products} />
+        )
       }
     </section>
   )
