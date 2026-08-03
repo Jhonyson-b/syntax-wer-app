@@ -2,9 +2,10 @@ interface ButtonProps {
     children: React.ReactNode; //significa que o componente Button pode receber qualquer tipo de conteúdo como filho, seja texto, elementos JSX ou outros componentes.
     variant?: 'primary' | 'secondary'; //significa que o componente Button pode receber uma propriedade opcional chamada variant, que pode ser 'primary' ou 'secondary'. Isso permite que você defina diferentes estilos para o botão com base no valor dessa propriedade.
     size?: 'sm' | 'md' | 'lg'; //significa que o componente Button pode receber uma propriedade opcional chamada size, que pode ser 'sm', 'md' ou 'lg'. Isso permite que você defina diferentes tamanhos para o botão com base no valor dessa propriedade.
+    onClick?: () => void; //significa que o componente Button pode receber uma propriedade opcional chamada onClick, que é uma função que será executada quando o botão for clicado. Isso permite que você defina um comportamento personalizado para o botão ao ser clicado.
 }
 
-export const Button = ({children, variant = 'primary', size = 'md'}: ButtonProps) => {
+export const Button = ({children, variant = 'primary', size = 'md', onClick }: ButtonProps) => {
 
     const buttonStyles = {
         base: 'flex justify-center items-center gap-2 text-nowrap leading-none hover:cursor-pointer transition-colors duration-200 font-medium rounded-full transition py-2.5',
@@ -22,6 +23,6 @@ export const Button = ({children, variant = 'primary', size = 'md'}: ButtonProps
     const className = `${buttonStyles.base} ${buttonStyles.variant[variant]} ${buttonStyles.size[size]}`;
 
     return (
-        <button className={className}>{children}</button>
+        <button className={className} onClick={onClick}>{children}</button>
     );
 };
