@@ -10,7 +10,7 @@ export const ShoppingCart = () => {
 
     return (
         <>
-            <button className="relative cursor-pointer" onClick={() => setCartIsOpen(!cartIsOpen)} aria-label={`Carrinho com ${totalItemsInCart} itens`}>
+            <button className="relative cursor-pointer flex items-center" onClick={() => setCartIsOpen(!cartIsOpen)} aria-label={`Carrinho com ${totalItemsInCart} itens`}>
                 <img src={IconCart} alt="Ícone carrinho de compras" />
 
                 {totalItemsInCart > 0 && (
