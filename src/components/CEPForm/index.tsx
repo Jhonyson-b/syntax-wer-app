@@ -54,7 +54,7 @@ export const CEPForm = () => {
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
                 <div className="flex gap-3">
                     <input
-                        className="border border-[#c0c0c0] rounded-md p-3"
+                        className="border border-border rounded-md p-3"
                         type="text"
                         placeholder="Insira seu CEP"
                         maxLength={9}

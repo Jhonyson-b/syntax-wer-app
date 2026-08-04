@@ -61,16 +61,16 @@ function RouteComponent() {
 
         <p className="mb-2">Cor: {filteredProduct?.color}</p>
 
-        <p className="line-through  text-sm text-[#878787]">{formatCurrency(originalPrice)}</p>
+        <p className="line-through text-sm text-text-tertiary">{formatCurrency(originalPrice)}</p>
 
         <p className='text-3xl font-bold mb-2'>{formatCurrency(discountPrice)} no PIX</p>
 
-        <p className='text-sm text-[#878787]'>Você economiza: <span className="font-semibold">10%</span></p>
+        <p className='text-sm text-text-tertiary'>Você economiza: <span className="font-semibold">10%</span></p>
 
         <p>Ou {""}
-          <span className="text-[#38373A] font-semibold">6x</span> {""}
+          <span className="text-text-secondary font-semibold">6x</span> {""}
           de {""}
-          <span className="text-[#38373A] font-semibold">{formatCurrency(inInstallmentsPrice)}</span>
+          <span className="text-text-secondary font-semibold">{formatCurrency(inInstallmentsPrice)}</span>
         </p>
 
         <p className="max-w-125 my-5">

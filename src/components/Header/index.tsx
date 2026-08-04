@@ -56,11 +56,6 @@ export const Header = () => {
                             </li>
 
                             <li>
-                                <Link to='/about'>
-                                <img src={IconAbout} alt='Ícone de sobre' className='hidden md:block' /></Link>
-                            </li>
-
-                            <li>
                                 <ShoppingCart />
                             </li>
                         </ul>
